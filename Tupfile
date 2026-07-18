@@ -1,0 +1,14 @@
+import LLVM_MOS=llvm-mos
+
+CC = $(LLVM_MOS)/bin/mos-nes-mmc1-clang
+
+CFLAGS += -std=gnu23
+CFLAGS += -Wall -Wextra
+CFLAGS += -g -gdwarf-4
+CFLAGS += -Os -flto
+LINKLIBS += -lneslib -lnesdoug
+LINKFLAGS += -Tcommon.ld -Tc-in-prg-ram-0.ld -Tprg-rom-fixed.ld
+# LINKFLAGS += -Wl,-Map,main.map,--lto-whole-program-visibility -Tcommon.ld -Tc-in-prg-ram-0.ld -Tprg-rom-fixed.ld
+
+: main.c |> ^j CC %f^ $(CC) $(CFLAGS) -c -o %B.o %f |> %B.o {obj}
+: {obj} |> ^j LINK main^ $(CC) $(CFLAGS) -o main.nes $(LINKFLAGS) $(LINKLIBS) %f |> main.nes.elf main.nes main.mlb

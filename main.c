@@ -108,10 +108,9 @@ void clear_display() {
 }
 
 void render_text(uint16_t line, uint16_t col, const char *str, size_t n) {
-  vram_adr(NTADR_A(col, line));
   for (size_t i = 0; i < n && str[i] != '\0'; i++) {
     char data = font_mapping[(size_t)str[i]];
-    vram_put(data);
+    one_vram_buffer(data, NTADR_A(col + i, line));
   }
 }
 
@@ -123,8 +122,6 @@ const uint8_t palette_bg[16] = {
 };
 
 void update() {
-  ppu_off();
-
   static int frame = 0;
   static int count = 0;
 
@@ -143,8 +140,6 @@ void update() {
   if (count > 120) {
     render_text(12, 9, "This is awkward...", count - 120);
   }
-
-  ppu_on_all();
 }
 
 int main() {
@@ -152,8 +147,13 @@ int main() {
   printf("Starting...");
 
   ppu_off();
-  clear_display();
+  // Set the palette
   pal_bg(palette_bg);
+  // Clear the display, initially.
+  clear_display();
+
+  // Set the vram buffer to update during nmi
+  set_vram_buffer();
   ppu_on_all();
 
   for (;;) {

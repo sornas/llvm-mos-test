@@ -2,3 +2,8 @@
 *.mlb
 *.nes
 *.o
+
+# Environment
+.env*
+.direnv/
+compile_commands.json

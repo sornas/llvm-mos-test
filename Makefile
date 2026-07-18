@@ -8,5 +8,8 @@ all: main.nes
 main.o: main.c
 	$(CC) $(CFLAGS) main.c -c -o main.o
 
-main.nes: main.o
-	$(CC) $(CFLAGS) main.o -o main.nes $(LINKFLAGS) $(LINKLIBS)
+chr.o: chr.s
+	$(CC) $(CFLAGS) chr.s -c -o chr.o
+
+main.nes: main.o chr.o
+	$(CC) $(CFLAGS) main.o chr.o -o main.nes $(LINKFLAGS) $(LINKLIBS)

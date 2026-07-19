@@ -4,7 +4,7 @@ CFLAGS_c = -std=gnu23 -Wall -Wextra -Os
 LINKFLAGS = -Tcommon.ld -Tc-in-prg-ram-0.ld -Tprg-rom-fixed.ld
 LINKLIBS = -lneslib -lnesdoug
 
-SRCS := $(shell find . -name "*.c" -or -name "*.s")
+SRCS := $(shell find -L . -name "*.c" -or -name "*.s")
 OBJS := $(SRCS:%=%.o)
 
 all: main.nes

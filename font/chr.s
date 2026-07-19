@@ -1,2 +1,2 @@
 .section .chr_rom_0_1,"a",@progbits
-.incbin "computer-font.chr"
+.incbin "font/computer-font.chr"

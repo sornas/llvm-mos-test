@@ -1,0 +1,5 @@
+# vim: ft=toml
+
+[binaries]
+c = 'mos-nes-mmc1-clang'
+cpp = 'mos-nes-mmc1-clang++'

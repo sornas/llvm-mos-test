@@ -1,6 +1,6 @@
 CC = $(LLVM_MOS)/bin/mos-nes-mmc1-clang
 CFLAGS = -flto
-CFLAGS_c = -std=gnu23 -Wall -Wextra -Os
+CFLAGS_c = -std=gnu23 -Wall -Wextra -Os -g
 LINKFLAGS = -Tcommon.ld -Tc-in-prg-ram-0.ld -Tprg-rom-fixed.ld
 LINKLIBS = -lneslib -lnesdoug
 

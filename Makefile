@@ -14,7 +14,8 @@ build: out/main.nes
 run: out/main.nes
 	mesen out/main.nes
 
-clean: rm -rf out/
+clean:
+	rm -rf out/
 
 out/%.c.o: %.c
 	mkdir -p "$$(dirname "$@")"

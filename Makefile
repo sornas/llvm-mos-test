@@ -5,15 +5,17 @@ LINKFLAGS = -Tcommon.ld -Tc-in-prg-ram-0.ld -Tprg-rom-fixed.ld
 LINKLIBS = -lneslib -lnesdoug
 
 SRCS := $(shell find -L . -name "*.c" -or -name "*.s")
-OBJS := $(SRCS:%=%.o)
+OBJS := $(SRCS:%=out/%.o)
 
-all: main.nes
+all: out/main.nes
 
-%.c.o: %.c
+out/%.c.o: %.c
+	mkdir -p "$$(dirname "$@")"
 	$(CC) $(CFLAGS) $(CFLAGS_c) $^ -c -o $@
 
-%.s.o: %.s
+out/%.s.o: %.s
+	mkdir -p "$$(dirname "$@")"
 	$(CC) $(CFLAGS) $^ -c -o $@
 
-main.nes: $(OBJS)
-	$(CC) $(CFLAGS) $^ -o main.nes $(LINKFLAGS) $(LINKLIBS)
+out/main.nes: $(OBJS)
+	$(CC) $(CFLAGS) $^ -o out/main.nes $(LINKFLAGS) $(LINKLIBS)

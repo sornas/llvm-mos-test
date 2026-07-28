@@ -7,7 +7,14 @@ LINKLIBS = -lneslib -lnesdoug
 SRCS := $(shell find -L . -name "*.c" -or -name "*.s")
 OBJS := $(SRCS:%=out/%.o)
 
-all: out/main.nes
+.PHONY: build run clean
+
+build: out/main.nes
+
+run: out/main.nes
+	mesen out/main.nes
+
+clean: rm -rf out/
 
 out/%.c.o: %.c
 	mkdir -p "$$(dirname "$@")"
